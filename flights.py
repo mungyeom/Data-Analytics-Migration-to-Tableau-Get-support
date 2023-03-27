@@ -243,15 +243,6 @@ dis_df_87['Origin airport'] = dis_df_87['Origin airport'].str.replace('distance 
 dis_df_87['Distance_km'] =dis_df_87['Distance_km'].str.replace('kilometers','').astype(int)
 dis_df_87.head()
 
-# sam = pd.DataFrame({
-#     'name': ['Alice', 'Bob', 'Charlie'],
-#     'age': [25, 30, 35]
-# })
-# sam
-# new_row = pd.DataFrame({'name': 'Dave', 'age': 40}, index=[0.5])
-# sam = pd.concat([sam.loc[:0], new_row, sam.loc[1:]]).reset_index(drop=True) # 넣고 싶은 인덱스 -1 , 앞 인덱스 + 0.5, 내가 되고 싶은 인덱스
-# print(sam)
-
 
 # convert the unit
 def km_to_mile(km):
@@ -471,7 +462,7 @@ df_89_distance.loc[3610]
 dis_df_89.loc[3596]
 new_row_89 = pd.DataFrame({'Origin airport': 'Los Angeles International Airport',\
                          'Destination airport':'Los Angeles International Airport', 'Distance_km':'0'}, index=[3595.5])
-dis_df_89= pd.concat([dis_df_89.loc[:3595],new_row_89,dis_df_89[3596:]]).reset_index(drop=True)
+dis_df_89= pd.concat([dis_df_89.loc,new_row_89,dis_df_89]).reset_index(drop=True)
 
 dis_df_89.loc[3610]
 new_row_89_1 = pd.DataFrame({'Origin airport': "O'Hare International Airport",\
@@ -710,9 +701,7 @@ merged_90.isnull().sum()
 merged_90.head()
 merged_90.to_csv('df_90.csv',index=False)
 
-# 1991
-
-# 1990 
+# 1991 
 df_91 = pd.read_csv('1991.csv')
 df_91.shape
 df_91.info()
@@ -863,11 +852,12 @@ merged_91.isnull().sum()
 merged_91.head()
 merged_91.to_csv('df_91.csv',index=False)
 
-#1992
+# 1992
 df_92 = pd.read_csv('1992.csv')
 df_92.shape
 df_92.info()
-# how much missing data 
+
+# How much data is missing
 df_92.isnull().sum()/len(df_92) *100
 
 df_92.isnull().sum()
