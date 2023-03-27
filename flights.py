@@ -1,7 +1,7 @@
-import os
-path = os.getcwd()
-print(path)
-os.chdir('/Users/gyeomi/Desktop/Aicore/Data_Analytics_Migration_to_Tableau')
+# import os
+# path = os.getcwd()
+# print(path)
+
 
 
 import pandas as pd
@@ -1681,3 +1681,4 @@ df_96.head()
 master_df = pd.concat([df_87, df_89, df_90, df_91, df_92, df_93, df_94, df_95, df_96], axis=0)
 master_df.info()
 master_df.to_csv('combined_data.csv')
+
