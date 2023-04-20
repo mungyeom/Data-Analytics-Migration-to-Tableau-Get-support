@@ -1,7 +1,3 @@
-# import os
-# path = os.getcwd()
-# print(path)
-
 
 
 import pandas as pd
@@ -451,6 +447,17 @@ dis_df_89['Origin airport'] = dis_df_89['Origin airport'].str.replace('distance 
 dis_df_89['Distance_mile'] = dis_df_89['Distance_km'].progress_apply(km_to_mile)
 dis_df_89['Distance_mile'] = dis_df_89['Distance_mile'].round()
 dis_df_89['Distance_mile'] = dis_df_89['Distance_mile'].astype(int)
+
+
+
+# sam = pd.DataFrame({
+#     'name': ['Alice', 'Bob', 'Charlie'],
+#     'age': [25, 30, 35]
+# })
+# sam
+# new_row = pd.DataFrame({'name': 'Dave', 'age': 40}, index=[0.5])
+# sam = pd.concat([sam.loc[:0], new_row, sam.loc[1:]]).reset_index(drop=True) # 넣고 싶은 인덱스 -1 , 앞 인덱스 + 0.5, 내가 되고 싶은 인덱스
+# print(sam)
 
 # merge 
 dis_df_89.isnull().sum()
@@ -1671,4 +1678,20 @@ df_96.head()
 master_df = pd.concat([df_87, df_89, df_90, df_91, df_92, df_93, df_94, df_95, df_96], axis=0)
 master_df.info()
 master_df.to_csv('combined_data.csv')
+
+# add flight,inbound and outbound columns
+master_df['flight'] = master_df['UniqueCarrier'] + master_df['FlightNum'].astype(str) + '_' + master_df['Origin'] + '_' + master_df['Dest']
+master_df['flight']
+inbound = master_df.groupby(['flight', 'Dest']).size().reset_index(name='inbound_flights')
+inbound
+outbound = master_df.groupby(['flight', 'Origin']).size().reset_index(name='outbound_flights')
+master_df = pd.merge(master_df, inbound, on=['flight', 'Dest'], how='left')
+master_df = pd.merge(master_df, outbound, on=['flight', 'Origin'], how='left')
+master_df.keys()
+master_df.info()
+master_df['Cancelled'].value_counts()
+master_df['TailNum']
+master_df = master_df.rename(columns={'Origin airport':'OriginAirport','Destination airport':'DestinationAirport' })
+master_df.to_csv('combined_data.csv', index = False, header = True)
+master_df = master_df.drop('Unnamed: 0',axis=1)
 
