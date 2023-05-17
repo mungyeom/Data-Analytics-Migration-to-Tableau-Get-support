@@ -1,4 +1,4 @@
-# Data_Analytics_Migration_to_Tableau
+# Data Analytics Migration to Tableau
 
 ## Milestone 2 : Data wrangling and cleaning
 - Prepare the flights data for analysis by exploring, cleaning and intergrating the various data files and creating a final, intergrated master file.
